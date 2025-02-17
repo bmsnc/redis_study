@@ -1,0 +1,6 @@
+
+### curl -X GET http://localhost:8080/api/v1/movie/running/{{theaterId}}
+GET http://localhost:8080/api/v1/movies/running/1
+
+### curl -X GET http://localhost:8080/api/v1/movie/searchRunningMovies
+GET http://localhost:8080/api/v1/movies/searchRunningMovies?theaterId=1&movieName=킹스맨&genre=

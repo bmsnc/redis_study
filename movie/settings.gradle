@@ -1,0 +1,5 @@
+rootProject.name = 'movie'
+include 'movie-adapter'
+include 'movie-application'
+include 'movie-common'
+
