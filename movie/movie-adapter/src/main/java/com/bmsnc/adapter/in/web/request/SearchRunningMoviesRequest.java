@@ -1,4 +1,4 @@
-package com.bmsnc.adapter.in.web;
+package com.bmsnc.adapter.in.web.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

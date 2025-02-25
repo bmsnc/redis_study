@@ -1,6 +1,6 @@
-package com.bmsnc.adapter.in.web;
+package com.bmsnc.adapter.in.web.controller;
 
-import com.bmsnc.adapter.out.persistence.entity.Movie;
+import com.bmsnc.adapter.in.web.request.SearchRunningMoviesRequest;
 import com.bmsnc.applicaion.domain.model.MovieModel;
 import com.bmsnc.applicaion.domain.service.MovieUseCaseService;
 import com.bmsnc.applicaion.port.in.RunningMovieCommand;
@@ -8,8 +8,6 @@ import com.bmsnc.common.Result;
 import com.bmsnc.common.dto.MovieGenre;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +29,9 @@ public class MovieController {
         return Result.of("Success", 200, movieUseCaseService.getRunningMovies(command));
     }
 
-    // QueryDsl
+    /**
+     * 필요한 필드만 조회 하기 위해 QueryDsl 사용한 API
+     */
     @GetMapping("/searchRunningMovies")
     public Result<List<MovieModel>> searchRunningMovies(@Valid SearchRunningMoviesRequest request) {
         MovieGenre movieGenre =  MovieGenre.anyMatch(request.movieGenre()) ? MovieGenre.valueOf(request.movieGenre()) : MovieGenre.ALL;
