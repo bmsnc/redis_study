@@ -17,7 +17,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
-const N = 100; // DAU 값 설정 (100명)
+const N = 1000; // DAU 값 설정 (1000명)
 const dailyRequests = N * 2; // 1일 총 접속 수
 const avgRPS = dailyRequests / 86400; // 1일 평균 RPS
 const peakRPS = Math.max(1, Math.round(avgRPS * 10)); // 1일 최대 RPS (소수점 제거, 최소값 1이상)
@@ -39,7 +39,8 @@ export let options = {
 };
 
 export default function () {
-    let res = http.get('http://localhost:8080/api/v1/movies/searchRunningMovies?theaterId=1&movieName=킹스맨&genre=');
+    let res = http.get('http://localhost:8080/api/v1/movies/running/1');
+    // let res = http.get('http://localhost:8080/api/v1/movies/searchRunningMovies?theaterId=1&movieName=&genre=');
     check(res, {
         'is status 200': (r) => r.status === 200,
     });
