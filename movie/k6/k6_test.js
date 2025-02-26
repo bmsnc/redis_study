@@ -1,6 +1,6 @@
 /*
 # 전제 조건
-- **DAU**: N명
+- **DAU**: N=1000명
 - **1명당 1일 평균 접속 수**: 2번
 - **피크 시간대의 집중률**: 평소 트래픽의 10배
 - **Throughput 계산**:
@@ -28,7 +28,7 @@ export let options = {
             executor: 'constant-arrival-rate',
             rate: peakRPS, // 초당 요청 수 (최대 RPS)
             timeUnit: '1s',
-            duration: '10m', // 테스트 지속 시간
+            duration: '5m', // 테스트 지속 시간
             preAllocatedVUs: N, // VU 수 (DAU와 동일하게 설정)
         },
     },
@@ -39,8 +39,8 @@ export let options = {
 };
 
 export default function () {
-    let res = http.get('http://localhost:8080/api/v1/movies/running/1');
-    // let res = http.get('http://localhost:8080/api/v1/movies/searchRunningMovies?theaterId=1&movieName=&genre=');
+    // let res = http.get('http://localhost:8080/api/v1/movies/running/1');
+    let res = http.get('http://localhost:8080/api/v1/movies/searchRunningMovies?theaterId=1&movieName=&genre=');
     check(res, {
         'is status 200': (r) => r.status === 200,
     });

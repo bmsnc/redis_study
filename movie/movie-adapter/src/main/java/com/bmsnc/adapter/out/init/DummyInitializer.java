@@ -35,7 +35,7 @@ public class DummyInitializer implements ApplicationRunner {
         LocalDateTime screenCloseAt = LocalDateTime.now();
 
         List<Schedule> dummyScheduleList = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 0; i++) {
             dummyScheduleList.add(
                     Schedule.builder()
                             .movie(totalMovies.get((int) ((Math.random() * totalMovies.size()))))
