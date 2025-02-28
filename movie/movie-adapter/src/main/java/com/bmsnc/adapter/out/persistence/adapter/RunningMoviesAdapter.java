@@ -9,6 +9,7 @@ import com.bmsnc.applicaion.domain.model.MovieModel;
 import com.bmsnc.applicaion.port.in.RunningMovieCommand;
 import com.bmsnc.applicaion.port.out.RunningMoviesPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class RunningMoviesAdapter implements RunningMoviesPort {
     private final ScheduleQueryRepository scheduleQueryRepository;
 
     @Override
+    @Cacheable(cacheNames = "movie")
     public List<MovieModel> getRunningMovies(RunningMovieCommand command) {
         return scheduleRepository.getRunningMovies(command.theaterId(), LocalDate.now())
                 .stream()
@@ -36,6 +38,7 @@ public class RunningMoviesAdapter implements RunningMoviesPort {
     }
 
     @Override
+//    @Cacheable(cacheNames = "movie")
     public List<MovieModel> searchRunningMovies(RunningMovieCommand command) {
         return scheduleQueryRepository.searchRunningMovies(command)
                 .stream()
