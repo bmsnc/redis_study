@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum CacheType {
-    Movie("movie", 5);
+    Movie("movie", 24);
 
     private final String cacheName;
     private final int expiredAfterWrite;

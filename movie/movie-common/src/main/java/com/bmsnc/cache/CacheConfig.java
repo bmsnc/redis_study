@@ -19,7 +19,7 @@ public class CacheConfig {
     public List<CaffeineCache> caffeineCaches() {
         return Arrays.stream(CacheType.values())
                 .map(cache -> new CaffeineCache(cache.getCacheName(), Caffeine.newBuilder().recordStats()
-                        .expireAfterWrite(cache.getExpiredAfterWrite(), TimeUnit.MINUTES)
+                        .expireAfterWrite(cache.getExpiredAfterWrite(), TimeUnit.HOURS)
                         .build()))
                 .toList();
     }
