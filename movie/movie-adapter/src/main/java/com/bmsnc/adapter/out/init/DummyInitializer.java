@@ -6,6 +6,8 @@ import com.bmsnc.adapter.out.persistence.entity.Theater;
 import com.bmsnc.adapter.out.persistence.repository.MovieRepository;
 import com.bmsnc.adapter.out.persistence.repository.ScheduleRepository;
 import com.bmsnc.adapter.out.persistence.repository.TheaterRepository;
+import com.bmsnc.common.dto.MovieGenre;
+import com.bmsnc.common.dto.MovieGrade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Component
 @RequiredArgsConstructor
@@ -49,5 +52,36 @@ public class DummyInitializer implements ApplicationRunner {
             );
         }
         scheduleRepository.saveAllAndFlush(dummyScheduleList);
+        
+        List<Movie> dummyMovieList = new ArrayList<>();
+        StringBuilder sb;
+        Random random = new Random();
+        List<String> list;
+        for (int j = 0; j < 0; j++) {
+            sb = new StringBuilder();
+            list = new ArrayList<>();
+            for(int i=0; i<20; i++) {
+                int n = random.nextInt(36);
+                if(n>25) list.add(String.valueOf(n-25));
+                else list.add(String.valueOf((char)(n+65)));
+            }
+            for (String s : list) {
+                sb.append(s);
+            }
+            MovieGrade[] grades = MovieGrade.values();
+            MovieGenre[] genres = MovieGenre.values();
+
+            dummyMovieList.add(
+                    Movie.builder()
+                            .movieName(sb.toString())
+                            .movieGrade(grades[random.nextInt(grades.length)])
+                            .movieReleaseAt(screenOpenAt.minusYears(50))
+                            .movieImageUrl("X")
+                            .runningTimeMinutes((long) (Math.random() * 150) + 1)
+                            .movieGenre(genres[random.nextInt(genres.length)])
+                            .build()
+            );
+        }
+        movieRepository.saveAllAndFlush(dummyMovieList);
     }
 }

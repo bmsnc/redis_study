@@ -27,7 +27,7 @@ public class RunningMoviesAdapter implements RunningMoviesPort {
     private final ScheduleQueryRepository scheduleQueryRepository;
 
     @Override
-    @Cacheable(cacheNames = "movie", key = "#command.theaterId() ?: '' + '_' + #command.movieName ?: ''")
+    @Cacheable(cacheNames = "movie", key = "#command.theaterId() ?: '' + '_' + #command.movieName ?: ''", unless = "#result.isEmpty()")
     public List<MovieModel> getRunningMovies(RunningMovieCommand command) {
         return scheduleRepository.getRunningMovies(command.theaterId(), LocalDate.now())
                 .stream()
@@ -38,7 +38,7 @@ public class RunningMoviesAdapter implements RunningMoviesPort {
     }
 
     @Override
-    @Cacheable(cacheNames = "movie", key = "#command.theaterId() ?: '' + '_' + #command.movieName ?: ''")
+    @Cacheable(cacheNames = "movie", key = "#command.theaterId() ?: '' + '_' + #command.movieName ?: ''", unless = "#result.isEmpty()")
     public List<MovieModel> searchRunningMovies(RunningMovieCommand command) {
         return scheduleQueryRepository.searchRunningMovies(command)
                 .stream()
