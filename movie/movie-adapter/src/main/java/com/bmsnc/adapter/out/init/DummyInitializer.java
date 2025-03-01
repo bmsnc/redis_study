@@ -6,6 +6,7 @@ import com.bmsnc.adapter.out.persistence.entity.Theater;
 import com.bmsnc.adapter.out.persistence.repository.MovieRepository;
 import com.bmsnc.adapter.out.persistence.repository.ScheduleRepository;
 import com.bmsnc.adapter.out.persistence.repository.TheaterRepository;
+import com.bmsnc.cache.CacheScheduler;
 import com.bmsnc.common.dto.MovieGenre;
 import com.bmsnc.common.dto.MovieGrade;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,8 @@ public class DummyInitializer implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
+        CacheScheduler cacheScheduler = new CacheScheduler();
+        cacheScheduler.clearMovieCache();
         List<Movie> totalMovies = movieRepository.findAll();
         List<Theater> totalTheaters = theaterRepository.findAll();
 

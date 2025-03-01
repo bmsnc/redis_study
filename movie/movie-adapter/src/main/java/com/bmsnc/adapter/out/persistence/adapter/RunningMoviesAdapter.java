@@ -38,8 +38,7 @@ public class RunningMoviesAdapter implements RunningMoviesPort {
     }
 
     @Override
-    @Cacheable(cacheNames = "movie")
-//    @Cacheable(cacheNames = "movie", key = "#command.theaterId() ?: '' + '_' + #command.movieName ?: ''", unless = "#result.isEmpty()")
+    @Cacheable(cacheNames = "movie", key = "#command.theaterId() ?: '' + '_' + #command.movieName ?: ''", unless = "#result.isEmpty()")
     public List<MovieModel> searchRunningMovies(RunningMovieCommand command) {
         return scheduleQueryRepository.searchRunningMovies(command)
                 .stream()
