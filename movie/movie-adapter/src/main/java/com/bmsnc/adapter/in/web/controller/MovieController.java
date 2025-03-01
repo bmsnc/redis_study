@@ -36,7 +36,8 @@ public class MovieController {
     public Result<List<MovieModel>> searchRunningMovies(@Valid SearchRunningMoviesRequest request) {
         MovieGenre movieGenre =  MovieGenre.anyMatch(request.movieGenre()) ? MovieGenre.valueOf(request.movieGenre()) : MovieGenre.ALL;
         RunningMovieCommand command = RunningMovieCommand.builder()
-                .theaterId(request.theaterId())
+//                .theaterId(request.theaterId())
+                .theaterId((long) (Math.random() * 100000) + 1)
                 .movieName(request.movieName())
                 .movieGenre(movieGenre)
                 .build();
